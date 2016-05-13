@@ -16,7 +16,7 @@ void showFooter();
 
 int editing=0;
 int i=0,j=0,chr,iPr;
-char** buffer;
+char buffer[20][78];
 
 int main(int argc, char** argv) {
 	if(argc == 2){
@@ -31,10 +31,6 @@ int main(int argc, char** argv) {
 		return 1;
 	}
 
-	buffer = (char **)malloc(sizeof(char *)*20);
-	for (i=0; i < 20; i++){
-		buffer[i] = (char *)malloc(sizeof(char)*78);
-	}
 	i = 0;
 	
 	while(1){
@@ -104,6 +100,9 @@ int main(int argc, char** argv) {
 		}
 		//*/
 	}
+
+	for(i=0;i<20;i++) for(j=0;j<78;j++) buffer[i][j] = 0;
+	
 	clrscr();
   	return 0;
 }

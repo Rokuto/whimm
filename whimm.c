@@ -18,8 +18,11 @@ void showFooter();
 int editing=0;
 int i=0,j=0,chr,iPr;
 char buffer[20][78];
+char tmp1,tmp2;
 
 int main(int argc, char** argv) {
+	for(i=0;i<20;i++) for(j=0;j<78;j++) buffer[i][j] = 0;
+	
 	if(argc == 2){
 		//print opening or creating a file here later
 		printf("%s\n",argv[1]);
@@ -31,8 +34,6 @@ int main(int argc, char** argv) {
 		printf("usage: whimm.exe <filename>\n");
 		return 1;
 	}
-
-	i = 0;
 	
 	while(1){
 		chr = getchar();
@@ -104,6 +105,7 @@ int main(int argc, char** argv) {
 
 //function that handles key presses to enter text into the text buffer
 void keyPressHandler(){
+	int _i,_j;
 	if(editing==0){
 		clrscr();
 		editing = 1;
@@ -117,7 +119,25 @@ void keyPressHandler(){
 			j=0;
 		}
 		clrscr();
-		buffer[i][j] = (char)chr;
+		if(buffer[i][j] == 0)
+			buffer[i][j] = (char)chr;
+		else {
+			tmp1 = buffer[i][j];
+			buffer[i][j] = (char)chr;
+			tmp2 = tmp1;
+			for(_i=i;_i<20;_i++){
+				for(_j=j+1;_j<78;_j++){
+					if(buffer[_i][_j] == 0)
+						break;
+					tmp1 = buffer[_i][_j];
+					buffer[_i][_j] = tmp2;
+					tmp2 = tmp1;
+				}
+				if(_j<78)
+					break;
+				_j = 0;
+			} 			
+		}
 		j++;
 	}
 	printText();

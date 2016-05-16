@@ -1,8 +1,14 @@
 /*
-	WHIMM FOR ICS-OS
+	AUTHORS:
 	Anton Dominique Cruz
 	Gauven Roy Pascua
-	Up to 77 characters, excluding new line character, per line
+	
+	PROGRAMME NAME:
+	WHIMM FOR ICS-OS
+
+	CURRENT LIMITATIONS:
+		Up to 20 lines only
+		Up to only 77 characters per line
 */
 
 #include "../../sdk/dexsdk.h"
@@ -18,15 +24,19 @@ void showFooter();
 int editing=0;
 int i=0,j=0,chr,iPr;
 char buffer[20][78];
+char filename[32];
 char tmp1,tmp2;
 
 int main(int argc, char** argv) {
 	for(i=0;i<20;i++) for(j=0;j<78;j++) buffer[i][j] = 0;
 	
 	if(argc == 2){
-		//print opening or creating a file here later
 		printf("%s\n",argv[1]);
 		return 0;
+		//if file exists, dump file contents to buffer
+		//and invoke printText()
+                //if it does not, set filename from argument
+		//and proceed to editing
 	}
 	else if(argc == 1)
 		printWelcome();
@@ -37,12 +47,12 @@ int main(int argc, char** argv) {
 	
 	while(1){
 		chr = getchar();
-		if(editing==0)
-			printf("%c - %d\n",chr,chr);
 		if(chr==16){
+			//Ctrl-Q was pressed
 			break;
 		}
 		if(chr==7){
+			//Ctrl-H was pressed
 			printHelp();
 			clrscr();
 			if(editing==0)
@@ -50,13 +60,12 @@ int main(int argc, char** argv) {
 			else{
 				printText();
 				showFooter();
-
 			}
 		}
 		if(chr==18){
+			//Ctrl-S was pressed
 			saveFileHandler();
 		}
-		///*
 		if((chr>=65&&chr<=90)||(chr>=97&&chr<=122)||(chr==32)||
 		(chr==96)||(chr==126)||(chr==49)||(chr==33)||(chr==50)||
 		(chr==64)||(chr==51)||(chr==35)||(chr==52)||(chr==36)||
@@ -68,14 +77,13 @@ int main(int argc, char** argv) {
 		(chr==39)||(chr==60)||(chr==44)||(chr==62)||(chr==46)||
 		(chr==47)||(chr==63)
 		){
-			//for all the valid keys on the keyboard
+			//a key that's used to input text was pressed
 			keyPressHandler();
 			showFooter();
 		}
 		if(chr==8){
-			//backspace
+			//backspace was pressed
 			if(editing==1){
-				clrscr();
 				if(j!=0){
 					buffer[i][j-1] = 0;
 					j--;
@@ -89,12 +97,11 @@ int main(int argc, char** argv) {
 			}
 		}
 		if(chr==9){
-			//tab equivalent to four white spaces
+			//tab was pressed
 		}
 		if(chr==10){
-			//enter
+			//enter/return key was pressed
 		}
-		//*/
 	}
 
 	for(i=0;i<20;i++) for(j=0;j<78;j++) buffer[i][j] = 0;
@@ -118,7 +125,6 @@ void keyPressHandler(){
 			i++;
 			j=0;
 		}
-		clrscr();
 		if(buffer[i][j] == 0)
 			buffer[i][j] = (char)chr;
 		else {
@@ -154,6 +160,7 @@ void saveFileHandler(){
 //function that prints the text in the text buffer
 void printText(){
 	int _j=0;
+	clrscr();
 	for(iPr=0;iPr<20;iPr++){
 		if(iPr==i){
 			printf("~ ");
@@ -206,7 +213,7 @@ void printHelp(){
 		printf("~\n");
 		printf("~\n");
 
-		int chr = getchar();
+		chr = getchar();
 		if(chr==81||chr==113)
 			break;
 	}

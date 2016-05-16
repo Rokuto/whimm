@@ -10,6 +10,7 @@
 
 void printWelcome();
 void printHelp();
+void printText();
 void keyPressHandler();
 void saveFileHandler();
 void showFooter();
@@ -46,8 +47,7 @@ int main(int argc, char** argv) {
 			if(editing==0)
 				printWelcome();
 			else{
-				for(iPr=0;iPr<20;iPr++)
-					printf("~ %s\n",buffer[iPr]);
+				printText();
 				showFooter();
 
 			}
@@ -83,12 +83,7 @@ int main(int argc, char** argv) {
 					//if the 'cursor' is in the first column and if it's not in the first line
 					//add upward moving of lines here later
 				}
-				for(iPr=0;iPr<20;iPr++){
-					if(iPr==i)
-						printf("~ %s_\n",buffer[iPr]);
-					else
-						printf("~ %s\n",buffer[iPr]);
-				}
+				printText();
 				showFooter();
 			}
 		}
@@ -125,12 +120,7 @@ void keyPressHandler(){
 		buffer[i][j] = (char)chr;
 		j++;
 	}
-	for(iPr=0;iPr<20;iPr++){
-		if(iPr==i)
-			printf("~ %s_\n",buffer[iPr]);
-		else
-			printf("~ %s\n",buffer[iPr]);
-	}
+	printText();
 	return;
 }
 
@@ -139,6 +129,24 @@ void saveFileHandler(){
 	if(editing==1){
 		//save file prompt here
 	}
+}
+
+//function that prints the text in the text buffer
+void printText(){
+	int _j=0;
+	for(iPr=0;iPr<20;iPr++){
+		if(iPr==i){
+			printf("~ ");
+			for(_j=0;_j<78;_j++){
+				if(j==_j) printf("_");
+				else printf("%c",buffer[i][_j]);
+			}
+			printf("\n");
+		}
+		else
+			printf("~ %s\n",buffer[iPr]);
+	}
+	return;
 }
 
 //function that shows the footer

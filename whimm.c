@@ -29,7 +29,8 @@ char tmp1,tmp2;
 
 int main(int argc, char** argv) {
 	for(i=0;i<20;i++) for(j=0;j<78;j++) buffer[i][j] = 0;
-	
+	i=0;
+	j=0;
 	if(argc == 2){
 		printf("%s\n",argv[1]);
 		return 0;
@@ -141,11 +142,18 @@ int main(int argc, char** argv) {
 		if(chr==-103){
 			//right arrow key was pressed
 			if(editing==1){
-				if((j==(strlen(buffer[i])))&&(buffer[i+1][0]!=0)){
+				if((buffer[i][j]==0)&&(i!=19)){
 					i++;
 					j=0;
 				}
-				else if((j!=0)&&(buffer[i][j+1]!=0)){
+				else if(j==0){
+					j++;
+				}
+				else if(j==77){
+					i++;
+					j=0;
+				}
+				else if(j!=0){
 					j++;
 				}
 				printText();

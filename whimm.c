@@ -102,6 +102,56 @@ int main(int argc, char** argv) {
 		if(chr==10){
 			//enter/return key was pressed
 		}
+		if(chr==-105){
+			//up arrow key was pressed
+			if(editing==1){
+				if(((i!=0)&&(buffer[i-1][0]!=0)))
+					i--;
+				else if(buffer[i][j]==0)
+					j = (strlen(buffer[i]));
+				printText();
+				showFooter();
+			}
+		}
+		if(chr==-104){
+			//down arrow key was pressed
+			if(editing==1){
+				if(((i!=19)&&(buffer[i+1][0]!=0)))
+					i++;
+				else if(buffer[i][j]==0)
+					j = (strlen(buffer[i]));
+				printText();
+				showFooter();
+			}	
+		}
+		if(chr==-106){
+			//left arrow key was pressed
+			if(editing==1){
+				if((j==0)&&(i!=0)){
+					i--;
+					j = (strlen(buffer[i]));
+				}
+				else if(j!=0){
+					j--;
+				}
+				printText();
+				showFooter();
+			}
+		}
+		if(chr==-103){
+			//right arrow key was pressed
+			if(editing==1){
+				if((j==(strlen(buffer[i])))&&(buffer[i+1][0]!=0)){
+					i++;
+					j=0;
+				}
+				else if((j!=0)&&(buffer[i][j+1]!=0)){
+					j++;
+				}
+				printText();
+				showFooter();
+			}
+		}
 	}
 
 	for(i=0;i<20;i++) for(j=0;j<78;j++) buffer[i][j] = 0;

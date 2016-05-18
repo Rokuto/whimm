@@ -102,6 +102,11 @@ int main(int argc, char** argv) {
 		}
 		if(chr==10){
 			//enter/return key was pressed
+			if(editing==1){
+				i++;
+				j=0;
+				//add downward moving of lines here later
+			}
 		}
 		if(chr==-105){
 			//up arrow key was pressed

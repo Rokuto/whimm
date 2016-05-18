@@ -8,7 +8,7 @@
 
 	CURRENT LIMITATIONS:
 		Up to 20 lines only
-		Up to only 77 characters per line
+		Up to only 76 characters per line
 */
 
 #include "../../sdk/dexsdk.h"
@@ -23,12 +23,12 @@ void showFooter();
 
 int editing=0;
 int i=0,j=0,chr,iPr;
-char buffer[20][78];
+char buffer[20][77];
 char filename[32];
 char tmp1,tmp2;
 
 int main(int argc, char** argv) {
-	for(i=0;i<20;i++) for(j=0;j<78;j++) buffer[i][j] = 0;
+	for(i=0;i<20;i++) for(j=0;j<77;j++) buffer[i][j] = 0;
 	i=0;
 	j=0;
 	if(argc == 2){
@@ -81,6 +81,9 @@ int main(int argc, char** argv) {
 			//a key that's used to input text was pressed
 			keyPressHandler();
 			showFooter();
+			//printf("~ ");
+			//for(j=0;j<77;j++) printf("%c",chr);
+			//printf("_\n");
 		}
 		if(chr==8){
 			//backspace was pressed
@@ -156,7 +159,7 @@ int main(int argc, char** argv) {
 				else if(j==0){
 					j++;
 				}
-				else if(j==77){
+				else if(j==76){
 					i++;
 					j=0;
 				}
@@ -169,7 +172,7 @@ int main(int argc, char** argv) {
 		}
 	}
 
-	for(i=0;i<20;i++) for(j=0;j<78;j++) buffer[i][j] = 0;
+	for(i=0;i<20;i++) for(j=0;j<77;j++) buffer[i][j] = 0;
 	
 	clrscr();
   	return 0;
@@ -185,19 +188,14 @@ void keyPressHandler(){
 		j++;
 	}
 	else{
-		//go to the next line if the line is maxed out
-		if(j==77){
-			i++;
-			j=0;
-		}
 		if(buffer[i][j] == 0)
 			buffer[i][j] = (char)chr;
 		else {
-			tmp1 = buffer[i][j];
+			/*tmp1 = buffer[i][j];
 			buffer[i][j] = (char)chr;
 			tmp2 = tmp1;
 			for(_i=i;_i<20;_i++){
-				for(_j=j+1;_j<78;_j++){
+				for(_j=j+1;_j<77;_j++){
 					if(buffer[_i][_j] == 0)
 						break;
 					tmp1 = buffer[_i][_j];
@@ -207,9 +205,14 @@ void keyPressHandler(){
 				if(_j<78)
 					break;
 				_j = 0;
-			} 			
+			}*/ 			
 		}
 		j++;
+		//go to the next line if the line is maxed out
+		if(j==76){
+			i++;
+			j=0;
+		}
 	}
 	printText();
 	return;
@@ -229,7 +232,7 @@ void printText(){
 	for(iPr=0;iPr<20;iPr++){
 		if(iPr==i){
 			printf("~ ");
-			for(_j=0;_j<78;_j++){
+			for(_j=0;_j<77;_j++){
 				if(j==_j) printf("_");
 				else printf("%c",buffer[i][_j]);
 			}

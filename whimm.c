@@ -107,6 +107,8 @@ int main(int argc, char** argv) {
 				j=0;
 				//add downward moving of lines here later
 			}
+			printText();
+			showFooter();
 		}
 		if(chr==-105){
 			//up arrow key was pressed

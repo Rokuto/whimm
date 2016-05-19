@@ -195,21 +195,33 @@ void keyPressHandler(){
 		if(buffer[i][j] == 0)
 			buffer[i][j] = (char)chr;
 		else {
-			/*tmp1 = buffer[i][j];
+			tmp1 = buffer[i][j];
 			buffer[i][j] = (char)chr;
 			tmp2 = tmp1;
 			for(_i=i;_i<20;_i++){
-				for(_j=j+1;_j<77;_j++){
-					if(buffer[_i][_j] == 0)
+				if(_i==i){
+					for(_j=j+1;_j<77;_j++){
+						if(_j==76)
+							break;
+						tmp1 = buffer[_i][_j];
+						buffer[_i][_j] = tmp2;
+						tmp2 = tmp1;
+					}
+					if(_j<76)
 						break;
-					tmp1 = buffer[_i][_j];
-					buffer[_i][_j] = tmp2;
-					tmp2 = tmp1;
 				}
-				if(_j<78)
-					break;
-				_j = 0;
-			}*/ 			
+				else{
+					for(_j=0;_j<77;_j++){
+						if(_j==76)
+							break;
+						tmp1 = buffer[_i][_j];
+						buffer[_i][_j] = tmp2;
+						tmp2 = tmp1;
+					}
+					if(tmp2==0)
+						break;
+				}
+			} 			
 		}
 		j++;
 		//go to the next line if the line is maxed out

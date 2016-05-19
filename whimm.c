@@ -227,11 +227,48 @@ void keyPressHandler(){
 
 //function that handles backspace presses
 void backspaceHandler(){
+	int _i,_j;
 	if(editing==1){
-		if(j!=0){
-			buffer[i][j-1] = 0;
-			j--;
+		if(j==0&&(i!=0)&&(buffer[i][j]==0)){
+			j = strlen(buffer[i-1]);
+			i--;
+			printText();
+			return;
 		}
+		//do nothing if cursor is on the start of the buffer/file
+		if(j==0&&i==0){
+			printText();
+			return;
+		}
+		if(buffer[i][j]==0)
+			buffer[i][j-1] = 0;
+		else{
+			buffer[i][j-1] = buffer[i][j];
+			tmp1 = buffer[i][j+1];
+			for(_i=i;i<20;i++){
+				if(_i==i){
+					for(_j=j+1;_j<77;_j++){
+						if(_j==76)
+							break;
+						buffer[_i][_j-1] = tmp1;
+						tmp1 = buffer[_i][_j+1];
+					}
+					if(tmp1==0)
+						break;
+				}
+				else{
+					for(_j=0;_j<77;_j++){
+						if(_j==76)
+							break;
+						buffer[_i][_j-1] = tmp1;
+						tmp1 = buffer[_i][_j+1];
+					}
+					if(tmp1==0)
+						break;
+				}
+			}
+		}
+		j--;
 		printText();
 	}
 	return;

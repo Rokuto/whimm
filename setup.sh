@@ -1,16 +1,16 @@
 #!/bin/bash
 
-sudo make clear
+sudo make clean
 sudo make
 sudo make install
 
 cd ../../kernel/
-sudo make clear
+sudo make clean
 sudo make
 sudo make install
 
 cd ..
-sudo make clear
+sudo make clean
 sudo make
 sudo make install
 

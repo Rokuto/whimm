@@ -1,4 +1,4 @@
-CC=gcc
+CC=gcc-4.8
 ICSOS_ROOT=../..
 SDK=../../sdk
 CFLAGS=-m32 -nostdlib -fno-builtin -static
@@ -16,7 +16,5 @@ uninstall:
 
 clean:
 	rm $(EXE)
-
-
 
 

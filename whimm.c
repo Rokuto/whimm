@@ -111,14 +111,13 @@ int main(int argc, char** argv) {
 		}
 		if(chr==10){
 			//enter/return key was pressed
-			printf("%c\n", chr);
 			if(editing==1){
 				i++;
 				j=0;
 				//add downward moving of lines here later
 			}
-			//printText();
-			//showFooter();
+			enterHandler();
+			showFooter();
 		}
 		if(chr==-105){
 			//up arrow key was pressed

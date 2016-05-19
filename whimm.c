@@ -49,6 +49,7 @@ int main(int argc, char** argv) {
 		else{
 			//if file exists, dump file contents to buffer
 			//and invoke printText()
+			editing = 1;
 			dumpFile();
 			printText();
 			showFooter();
@@ -323,14 +324,19 @@ void fileSave(){
 void dumpFile(){
 	int _i=0,_j=0;
 	tmp1 = fgetc(fileOpen);
-	while(tmp1!=EOF){
-		if(tmp1=='\n'){
-			_i++;
-			_j = 0;
+	for (_i=0;_i<20;_i++){
+		for(_j=0;_j<77;_j++){
+			if(tmp1=='\n'){
+				break;
+			}
+			else
+				buffer[_i][_j] = tmp1;
 			tmp1 = fgetc(fileOpen);
+			if (tmp1==EOF)
+				break;
 		}
-		buffer[_i][_j] = tmp1;
-		tmp1 = fgetc(fileOpen);
+		if(tmp1=='\n') tmp1 = fgetc(fileOpen);
+		if(tmp1==EOF) break;
 	}
 	return;
 }

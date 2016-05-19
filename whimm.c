@@ -18,6 +18,7 @@
 void printWelcome();
 void printHelp();
 void printText();
+void dumpFile();
 void fileSave();
 void backspaceHandler();
 void keyPressHandler();
@@ -312,6 +313,11 @@ void fileSave(){
 		}
 	}
 	fclose(fileWrite);
+	return;
+}
+
+//function that dumps the file contents to the text buffer
+void dumpFile(){
 }
 
 //function that prints the text in the text buffer

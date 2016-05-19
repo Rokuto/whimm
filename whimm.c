@@ -18,6 +18,7 @@
 void printWelcome();
 void printHelp();
 void printText();
+void fileSave();
 void backspaceHandler();
 void keyPressHandler();
 void saveFileHandler();
@@ -292,6 +293,10 @@ void saveFileHandler(){
 	}
 	chr = 0;
 	return;
+}
+
+//function that saves the text buffer into file
+void fileSave(){
 }
 
 //function that prints the text in the text buffer

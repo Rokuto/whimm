@@ -8,7 +8,8 @@
 
 	CURRENT LIMITATIONS:
 		Up to 20 lines only
-		Up to only 76 characters per line
+		Up to only 75 characters per line
+		When no filename was specified from arguments, filename length is only limited to 16 characters
 */
 
 #include "../../sdk/dexsdk.h"

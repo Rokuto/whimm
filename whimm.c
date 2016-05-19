@@ -49,8 +49,11 @@ int main(int argc, char** argv) {
 		else{
 			//if file exists, dump file contents to buffer
 			//and invoke printText()
+			dumpFile();
+			printText();
+			showFooter();
 			fclose(fileOpen);
-			return 0;
+			//return 0;
 		}
 		fclose(fileOpen);
 	}
@@ -318,6 +321,18 @@ void fileSave(){
 
 //function that dumps the file contents to the text buffer
 void dumpFile(){
+	int _i=0,_j=0;
+	tmp1 = fgetc(fileOpen);
+	while(tmp1!=EOF){
+		if(tmp1=='\n'){
+			_i++;
+			_j = 0;
+			tmp1 = fgetc(fileOpen);
+		}
+		buffer[_i][_j] = tmp1;
+		tmp1 = fgetc(fileOpen);
+	}
+	return;
 }
 
 //function that prints the text in the text buffer

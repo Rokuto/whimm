@@ -24,20 +24,28 @@ void showFooter();
 int editing=0;
 int i=0,j=0,chr,iPr;
 char buffer[20][77];
-char filename[32];
+char* filename;
 char tmp1,tmp2;
+FILE *fileOpen;
 
 int main(int argc, char** argv) {
 	for(i=0;i<20;i++) for(j=0;j<77;j++) buffer[i][j] = 0;
 	i=0;
 	j=0;
 	if(argc == 2){
-		printf("%s\n",argv[1]);
-		return 0;
-		//if file exists, dump file contents to buffer
-		//and invoke printText()
-                //if it does not, set filename from argument
-		//and proceed to editing
+		filename = (char *)malloc(sizeof(char)*strlen(argv[1]));
+		strcpy(filename,argv[1]);
+		fileOpen = fopen(filename,"r");
+		if (fileOpen == NULL){
+			editing = 1;
+			printText();
+			showFooter();
+		}
+		else{
+			//if file exists, dump file contents to buffer
+			//and invoke printText()
+			return 0;
+		}
 	}
 	else if(argc == 1)
 		printWelcome();
@@ -173,7 +181,8 @@ int main(int argc, char** argv) {
 	}
 
 	for(i=0;i<20;i++) for(j=0;j<77;j++) buffer[i][j] = 0;
-	
+	if(filename!=NULL) free(filename);
+
 	clrscr();
   	return 0;
 }
@@ -221,8 +230,20 @@ void keyPressHandler(){
 //function that handles saving of file
 void saveFileHandler(){
 	if(editing==1){
-		//save file prompt here
+		if(filename==NULL){
+			//prompt user for filename
+			clrscr();
+			printText();
+			printf("\n\n\tPlease enter a filename: ");
+		}
+		else{
+			clrscr();
+			printText();
+			printf("\n\n\tFile saved as %s!\n\n",filename);
+		}
 	}
+	chr = 0;
+	return;
 }
 
 //function that prints the text in the text buffer
@@ -285,6 +306,7 @@ void printHelp(){
 		if(chr==81||chr==113)
 			break;
 	}
+	chr = 0;
 	return;
 }
 

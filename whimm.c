@@ -160,18 +160,13 @@ int main(int argc, char** argv) {
 		if(chr==-103){
 			//right arrow key was pressed
 			if(editing==1){
-				if((buffer[i][j]==0)&&(i!=19)){
+				if((j==strlen(buffer[i]))&&(i!=19)){
 					i++;
 					j=0;
 				}
-				else if(j==0){
-					j++;
-				}
-				else if(j==76){
-					i++;
-					j=0;
-				}
-				else if(j!=0){
+				//do nothing if reached end of buffer/file
+				else if((j==strlen(buffer[i]))&&(i==19));
+				else {
 					j++;
 				}
 				printText();

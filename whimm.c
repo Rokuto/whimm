@@ -17,6 +17,7 @@
 void printWelcome();
 void printHelp();
 void printText();
+void backspaceHandler();
 void keyPressHandler();
 void saveFileHandler();
 void showFooter();
@@ -95,18 +96,8 @@ int main(int argc, char** argv) {
 		}
 		if(chr==8){
 			//backspace was pressed
-			if(editing==1){
-				if(j!=0){
-					buffer[i][j-1] = 0;
-					j--;
-				}
-				if((j==0)&&(i!=0)){
-					//if the 'cursor' is in the first column and if it's not in the first line
-					//add upward moving of lines here later
-				}
-				printText();
-				showFooter();
-			}
+			backspaceHandler();
+			showFooter();
 		}
 		if(chr==9){
 			//tab was pressed
@@ -231,6 +222,18 @@ void keyPressHandler(){
 		}
 	}
 	printText();
+	return;
+}
+
+//function that handles backspace presses
+void backspaceHandler(){
+	if(editing==1){
+		if(j!=0){
+			buffer[i][j-1] = 0;
+			j--;
+		}
+		printText();
+	}
 	return;
 }
 

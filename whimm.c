@@ -37,7 +37,9 @@ int main(int argc, char** argv) {
 	for(i=0;i<20;i++) for(j=0;j<77;j++) buffer[i][j] = 0;
 	i=0;
 	j=0;
-	if(argc == 2){
+
+	/*This check if the arguments satisfy the allowed parameters of the program*/
+	if(argc == 2){ // Openning / Creating named text file
 		filename = (char *)malloc(sizeof(char)*strlen(argv[1]));
 		strcpy(filename,argv[1]);
 		fileOpen = fopen(filename,"r");
@@ -55,13 +57,14 @@ int main(int argc, char** argv) {
 		}
 		fclose(fileOpen);
 	}
-	else if(argc == 1)
+	else if(argc == 1) // Creating a unnamed text fle 
 		printWelcome();
-	else {
+	else {// Error handling
 		printf("usage: whimm.exe <filename>\n");
 		return 1;
 	}
 	
+	// Accept user inputs
 	while(1){
 		chr = getchar();
 		if(chr==16){
@@ -170,6 +173,7 @@ int main(int argc, char** argv) {
 		}
 	}
 
+	/*Reset all data before closing*/
 	for(i=0;i<20;i++) for(j=0;j<77;j++) buffer[i][j] = 0;
 	if(filename!=NULL) free(filename);
 
@@ -181,6 +185,7 @@ int main(int argc, char** argv) {
 void keyPressHandler(){
 	int _i,_j;
 	if(editing==0){
+		/*Render the text input of the user to the screen*/
 		clrscr();
 		editing = 1;
 		buffer[i][j] = (char)chr;
@@ -190,30 +195,32 @@ void keyPressHandler(){
 		if(buffer[i][j] == 0)
 			buffer[i][j] = (char)chr;
 		else {
+			/*Use for inserting a text input in the array*/
 			tmp1 = buffer[i][j];
 			buffer[i][j] = (char)chr;
 			tmp2 = tmp1;
+			/*Move the succeeding elements as the user adds an input*/
 			for(_i=i;_i<20;_i++){
 				if(_i==i){
 					for(_j=j+1;_j<77;_j++){
-						if(_j==76)
+						if(_j==76) //Maximum capacity of an array
 							break;
 						tmp1 = buffer[_i][_j];
 						buffer[_i][_j] = tmp2;
 						tmp2 = tmp1;
 					}
-					if(_j<76)
+					if(_j<76) //Maximum capacity of an array
 						break;
 				}
 				else{
 					for(_j=0;_j<77;_j++){
-						if(_j==76)
+						if(_j==76) //Max Capacity
 							break;
 						tmp1 = buffer[_i][_j];
 						buffer[_i][_j] = tmp2;
 						tmp2 = tmp1;
 					}
-					if(tmp2==0)
+					if(tmp2==0) // Stop swapping
 						break;
 				}
 			} 			
@@ -233,6 +240,7 @@ void keyPressHandler(){
 void backspaceHandler(){
 	int _i,_j;
 	if(editing==1){
+		/*Decrement*/
 		if(j==0&&(i!=0)&&(buffer[i][j]==0)){
 			j = strlen(buffer[i-1]);
 			i--;
@@ -244,11 +252,14 @@ void backspaceHandler(){
 			printText();
 			return;
 		}
-		if(buffer[i][j]==0)
+		/*Remove the element on i, j*/
+		if(buffer[i][j]==0) // remove last element
 			buffer[i][j-1] = 0;
 		else{
+			/*Remove a non-last element*/
 			buffer[i][j-1] = buffer[i][j];
 			tmp1 = buffer[i][j+1];
+			// Moving of elements
 			for(_i=i;i<20;i++){
 				if(_i==i){
 					for(_j=j+1;_j<77;_j++){
@@ -394,10 +405,10 @@ void printHelp(){
 		printf("~\n");
 
 		chr = getchar();
-		if(chr==81||chr==113)
+		if(chr==81||chr==113) // return on q or Q press
 			break;
 	}
-	chr = 0;
+	chr = 0; // reset
 	return;
 }
 

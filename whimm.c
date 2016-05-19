@@ -47,14 +47,11 @@ int main(int argc, char** argv) {
 			showFooter();
 		}
 		else{
-			//if file exists, dump file contents to buffer
-			//and invoke printText()
 			editing = 1;
 			dumpFile();
 			printText();
 			showFooter();
 			fclose(fileOpen);
-			//return 0;
 		}
 		fclose(fileOpen);
 	}
@@ -100,9 +97,6 @@ int main(int argc, char** argv) {
 			//a key that's used to input text was pressed
 			keyPressHandler();
 			showFooter();
-			//printf("~ ");
-			//for(j=0;j<77;j++) printf("%c",chr);
-			//printf("_\n");
 		}
 		if(chr==8){
 			//backspace was pressed
@@ -338,6 +332,8 @@ void dumpFile(){
 		if(tmp1=='\n') tmp1 = fgetc(fileOpen);
 		if(tmp1==EOF) break;
 	}
+	i = _i;
+	j = _j;
 	return;
 }
 

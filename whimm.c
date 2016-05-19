@@ -30,6 +30,7 @@ char buffer[20][77];
 char* filename;
 char tmp1,tmp2;
 FILE *fileOpen;
+FILE *fileWrite;
 
 int main(int argc, char** argv) {
 	for(i=0;i<20;i++) for(j=0;j<77;j++) buffer[i][j] = 0;
@@ -47,8 +48,10 @@ int main(int argc, char** argv) {
 		else{
 			//if file exists, dump file contents to buffer
 			//and invoke printText()
+			fclose(fileOpen);
 			return 0;
 		}
+		fclose(fileOpen);
 	}
 	else if(argc == 1)
 		printWelcome();
@@ -281,15 +284,14 @@ void saveFileHandler(){
 	if(editing==1){
 		if(filename==NULL){
 			//prompt user for filename
-			clrscr();
+			filename = (char *)malloc(sizeof(char)*16);
 			printText();
 			printf("\n\n\tPlease enter a filename: ");
+			gets(filename);
 		}
-		else{
-			clrscr();
-			printText();
-			printf("\n\n\tFile saved as %s!\n\n",filename);
-		}
+		fileSave();
+		printText();
+		printf("\n\n\tFile saved as %s!\n\n",filename);
 	}
 	chr = 0;
 	return;
@@ -297,6 +299,19 @@ void saveFileHandler(){
 
 //function that saves the text buffer into file
 void fileSave(){
+	int _i,_j;
+	fileWrite = fopen(filename,"w");
+	for(_i=0;_i<20;_i++){
+		for(_j=0;_j<77;_j++){
+			if(buffer[_i][_j]==0){
+				fputc('\n',fileWrite);
+				break;
+			}
+			else
+				fputc(buffer[_i][_j],fileWrite);
+		}
+	}
+	fclose(fileWrite);
 }
 
 //function that prints the text in the text buffer
